@@ -21,7 +21,7 @@
 
 ### 2.1、部署合约
 
-这是一切的前提，示例里使用的是最简单的ERC20合约，也可以使用FISCO2.0自带的HelloWorld合约。
+这是一切的前提，示例里使用的是[HelloWorld合约](./web3lib/contract/HelloWorld.sol)。
 
 ### 2.1、Web版
 
@@ -66,8 +66,8 @@ const BN = require('bn.js')
 通过fiscoUtil.getTxData()来拼接call的参数，仅用于读取合约，无需签名
 
 ```
-var func = 'balanceOf(address)'
-var params = ['0xdc41b70baf48275e8493817213ebe565a32a6503']
+var func = 'get()'
+var params = []
 var txData = fiscoUtil.getTxData(func, params)
 ```
 
@@ -81,12 +81,12 @@ var txData = fiscoUtil.getTxData(func, params)
 var account = '0xdc41b70baf48275e8493817213ebe565a32a6503'
 var privateKey = 'e59ac4433e9d5675028a44ac3ca6bbbd81587059df0c41507c88bb5eaef43de6'
 var contractAddress = '0x3554a56ea2905f366c345bd44fa374757fb4696a' //合约地址
-var func = 'transfer(address,uint256)'
-var params = ['0x633bb489d568b2241c6a0dfff6d847696aab642c', 1]
+var func = 'set(string)'
+var params = ['fisco js sdk !']
 var signTX = fiscoUtil.getSignTX(account, privateKey, contractAddress, func, params, 1000)
 ```
 
-这里示范了在 0x3554a56ea2905f366c345bd44fa374757fb4696a 合约里， 0xdc41b70baf48275e8493817213ebe565a32a6503 给 0x633bb489d568b2241c6a0dfff6d847696aab642c 转了1个token，e59ac4433e9d5675028a44ac3ca6bbbd81587059df0c41507c88bb5eaef43de6 是 0xdc41b70baf48275e8493817213ebe565a32a6503 的私钥，1000是blockLimit，正常情况应该是当前区块高度+1000，这里省略了。
+这里示范了写入 0x3554a56ea2905f366c345bd44fa374757fb4696a 合约， e59ac4433e9d5675028a44ac3ca6bbbd81587059df0c41507c88bb5eaef43de6 是 0xdc41b70baf48275e8493817213ebe565a32a6503 的私钥，1000是blockLimit，正常情况应该是当前区块高度+1000，这里省略了。
 
 ### 3.2、NodeJS版
 
@@ -120,11 +120,11 @@ const execSync = require('child_process').execSync
 编译.sol合约文件
 
 ```
-execSync('solc --bin -o D:\\temp\\ D:\\project\\BCOS\\ERC20.sol')
-var bin = fs.readFileSync('D:\\temp\\ERC20.bin', 'utf-8')
+execSync('solc --bin -o ./contract ./contract/HelloWorld.sol')
+var bin = fs.readFileSync('./contract/HelloWorld.bin', 'utf-8')
 ```
 
-注意双斜杠，跟linux路径写法不同。这里意思是把 ERC20.sol 编译到 D:\temp\ERC20.bin，如果 ERC20.sol 引用了 zeppelin-solidity 里的.sol，会一起编译。编译成功后，读取 ERC20.bin 为字符串（注意这里字符串不带0x前缀）
+这里意思是把 HelloWorld.sol 编译到 contract 文件夹，如果编译的.sol 引用了其它的.sol，会一起编译。编译成功后，读取 HelloWorld.bin 为字符串（注意这里字符串不带0x前缀）
 
 ```
 var signTX = web3sync.getDeploySignTX(account, privateKey, bin, 1000)
