@@ -1,0 +1,22 @@
+{
+  "name": "fisco_jungle",
+  "version": "1.0.0",
+  "description": "For fisco-1.3*",
+  "main": "operations.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@git.chislab.com:7999/solc/jungle.git"
+  },
+  "author": "Miao Xia",
+  "license": "ISC",
+  "dependencies": {
+    "keccak": "^2.0.0",
+    "web3": "^1.0.0-beta.55"
+  }
+}
