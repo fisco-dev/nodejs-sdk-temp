@@ -2,7 +2,7 @@
 
 ## 环境依赖
 0. 工具可以运行在macos，泛linux内核(如archlinux, ubuntu, fedora, centos)
-1. 需要提前安装好的: truffle [用于编译合约, 不能编译国密版的], abigen [编译成golang版合约的工具, 通过官方go-ethereum编译获得]
+1. 需要提前安装好的: truffle [用于编译合约, 不能编译国密版的]
 2. fisco-bcos 1.3 节点可运行
 
 ## 使用方法
